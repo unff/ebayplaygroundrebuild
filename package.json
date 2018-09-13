@@ -1,13 +1,15 @@
 {
   "name": "ebay-playground-rebuild",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron": "ng build --base-href ./ && electron ."
   },
   "private": true,
   "dependencies": {
@@ -20,9 +22,13 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@clr/angular": "^0.13.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@clr/ui": "^0.13.0",
+    "@clr/icons": "^0.13.0",
+    "@webcomponents/custom-elements": "^1.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
@@ -33,6 +39,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.3.0",
+    "electron": "^2.0.9",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
