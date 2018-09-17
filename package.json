@@ -28,6 +28,7 @@
     "@webcomponents/custom-elements": "^1.0.0",
     "core-js": "^2.5.4",
     "ngx-electron": "^1.0.4",
+    "ngx-store": "^2.0.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },

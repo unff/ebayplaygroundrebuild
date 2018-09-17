@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ebayPlaygroundRebuild';
+  title = 'eBay Playground';
+
+  constructor(private _electronService: ElectronService) {}
+
+  getCode() {
+    console.log(__dirname)
+    let x = this._electronService.remote.require('../main.js')
+    console.log('getCode')
+    console.log(x)
+    x.authWindow()
+  }
+
 }
