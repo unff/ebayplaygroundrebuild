@@ -2,7 +2,7 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 
-let win;
+let windows = new Set()
 
 function createWindow() {
   win = new BrowserWindow({ 
@@ -30,6 +30,8 @@ function createWindow() {
   win.on("closed", () => {
     win = null;
   });
+
+  windows.add(win)
 }
 
 app.on("ready", createWindow);
@@ -47,3 +49,20 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+// Auth window
+const authWindow = exports.authWindow = () => {
+  authWin = new BrowserWindow({
+    width: 600,
+    height: 1000,
+    show: false
+  })
+
+  authWin.once('ready-to-show', () => {
+    authWin.show()
+  })
+
+  authWin.loadURL(  ); // Load ebay auth URL
+
+  windows.add(authWin)
+}
