@@ -1,10 +1,21 @@
-Create a config object, or copy it over from the previous project
 
-trigger authWindow from the ng view
-where does the redirect listener go?
+generate tokens
+pass tokens back through IPC
+Angular handles local storage and persistence.
 
+- click the gear
+- get code through electron
+- turn code into token(s) in electron
+- pass tokens back to Angular
+- angular sets localstorage values
 
-instead of trying and failing to use remote to include the exports from main.js, let's try ipcRenderer instead.
+Do we pass the config from Angular to Electron then?  Electron just generates tokens based on the config from Angular?
 
-will-navigate not firing on redirect.  can't claim code.
-too tired to keep pounding at it.
+You should always have the option of generating a new set of tokens at any time
+
+Angular handles the data.  Electron handles the windows and given functionality
+
+Is WebStorageModule required on app.module?
+
+Any call to an Angular process should hinge on whether we are running in Electron or not. ngx-electron has such a flag.
+Will eventually want an external token API for non-Electron web app.

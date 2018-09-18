@@ -1,11 +1,13 @@
-const { app, BrowserWindow, net } = require("electron")
+const { app, BrowserWindow, net, ipcMain } = require("electron")
 const path = require("path")
 const url = require("url")
-const config = require("./config.json")
+const config = require("./config.json")  // may need to move to Angular.
 
 let windows = new Set()
 
 let win, authWin = null
+
+global.ebayData = {}
 
 let scope = encodeURIComponent(
   config.ebay.scope
@@ -31,10 +33,11 @@ function oauthCallback(url, window) {
   }
   if (code) {
     // do code related things
-    alert(code)
+    console.log(`code: ${code}`)
+    global.ebayData.code = code
   } else if (error) {
     // do error related things using error[1]
-    alert(error)
+    console.log(`error: ${error}`)
   }
 }
 
@@ -96,6 +99,14 @@ app.on("activate", () => {
   }
 })
 
+ipcMain.on('do-auth', (e, arg) => {
+  // Catch 'do-auth' from the renderer and fire up the auth window.  
+  // eventually we'll need to pass in a config object
+  console.log('do-auth arg: ')
+  console.log(arg)
+  authWindow()
+})
+
 // Auth window
 const authWindow = exports.authWindow = () => {
   authWin = new BrowserWindow({
@@ -118,12 +129,23 @@ const authWindow = exports.authWindow = () => {
     authWin = null
   })
 
-  authWin.webContents.on('will-navigate', (event, newUrl) => {
-    console.log('got navigate?')
-    oauthCallback(newUrl, authWindow)
+  authWin.webContents.on('did-get-redirect-request', (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) => {
+    // This one catches redirects that happen when you are already logged in via cache.
+    //console.log(`302 found: ${newURL}, ${oldURL}, ${httpResponseCode}`)
+    oauthCallback(newURL, authWin)
   })
 
-  authWin.webContents.on('did-navigate', () => {console.log('did navigate')})
+  authWin.webContents.on('will-navigate', (event, newUrl) => {
+    // This one catches fresh logins.
+    //console.log('got navigate?')
+    //console.log(newUrl)
+    oauthCallback(newUrl, authWin)
+  })
+
+  authWin.webContents.on('did-navigate', (e, url) => {
+    // This one catches intermediate redirects like from the login to the consent form.
+    //console.log('did navigate: '+ url)
+  })
 
   windows.add(authWin)
 }
