@@ -5,3 +5,6 @@ where does the redirect listener go?
 
 
 instead of trying and failing to use remote to include the exports from main.js, let's try ipcRenderer instead.
+
+will-navigate not firing on redirect.  can't claim code.
+too tired to keep pounding at it.

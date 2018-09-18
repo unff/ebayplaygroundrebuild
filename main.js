@@ -5,12 +5,27 @@ const config = require("./config.json")
 
 let windows = new Set()
 
+let win, authWin = null
+
+let scope = encodeURIComponent(
+  config.ebay.scope
+  .reduce((acc, val)=> acc+' '+val)
+  //.trim()
+)
+let tempAuthUrl = config.ebay.authorizeUrl
+    +"?client_id="+config.ebay.clientId
+    +"&response_type=code"
+    +"&redirect_uri="+config.ebay.ruName
+    +"&scope="+scope
+
+console.log(tempAuthUrl)
+
 
 function oauthCallback(url, window) {
   // regex!  ebay returns a code good for 5 minutes you can use to create a token set.  get the code.
-  let raw_code = /code=([^&]*)/.exec(newUrl)
+  let raw_code = /code=([^&]*)/.exec(url)
   let code = (raw_code && raw_code.length > 1) ? raw_code[1]: null // assuming a code was returned, set code equal to the first cap group (the bit after 'code=')
-  let error = /\?error=(.+)$/.exec(newUrl)
+  let error = /\?error=(.+)$/.exec(url)
   if (code || error) {
     window.close()
   }
@@ -89,6 +104,9 @@ const authWindow = exports.authWindow = () => {
     show: false
   })
   
+  //const ses = authWin.webContents.session
+  //ses.clearAuthCache(() => {})
+  //ses.clearCache(() => {})
   authWin.loadURL(tempAuthUrl) // Load ebay auth URL
 
   authWin.once('ready-to-show', () => {
@@ -101,24 +119,16 @@ const authWindow = exports.authWindow = () => {
   })
 
   authWin.webContents.on('will-navigate', (event, newUrl) => {
+    console.log('got navigate?')
     oauthCallback(newUrl, authWindow)
   })
+
+  authWin.webContents.on('did-navigate', () => {console.log('did navigate')})
 
   windows.add(authWin)
 }
 
+
 // let authUrl = (sandbox) => {
 
 // }
-let scope = encodeURIComponent(
-  config.ebay.scope
-  .reduce((acc, val)=> acc+' '+val)
-  //.trim()
-)
-let tempAuthUrl = config.ebay.authorizeUrl
-    +"?client_id="+config.ebay.clientId
-    +"&response_type=code"
-    +"&redirect_uri="+config.ebay.ruName
-    +"&scope="+scope
-
-//console.log(tempAuthUrl)

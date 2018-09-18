@@ -14,7 +14,7 @@ export class AppComponent {
 
   getCode() {
     console.log(__dirname)
-    let x = this._electronService.remote.require('../main.js')
+    let x = this._electronService.remote.require(`${__dirname}/../main.js`)
     console.log('getCode')
     console.log(x)
     x.authWindow()
