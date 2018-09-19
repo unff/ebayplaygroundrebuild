@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { EbayService } from "./services/ebay.service";
 import { ClarityModule } from '@clr/angular';
 import { NgxElectronModule } from 'ngx-electron';
@@ -15,6 +16,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     ClarityModule,
     NgxElectronModule,
+    FormsModule,
     WebStorageModule, // not sure if required
     BrowserModule
   ],

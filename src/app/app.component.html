@@ -7,12 +7,15 @@
         </a>
       </div>
       <div class="header-nav">
-        <a href="javascript://" class="active nav-link nav-text">Opt1</a>
-        <a href="javascript://" class="nav-link nav-text">Opt2</a>
+        <a href="javascript://" class="active nav-link nav-text">US</a>
+        <a href="javascript://" class="nav-link nav-text">UK</a>
+        <a href="javascript://" class="nav-link nav-text">AU</a>
       </div>
       <div class="header-actions">
-          <button class="btn btn-success">Sandbox</button>
-          <button class="btn btn-warning-outline">Live</button>
+          <button [ngClass]="this._ebayService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'"
+          (click)="this._ebayService.swapEnv(true)" type="button">Sandbox</button>
+          <button [ngClass]="!this._ebayService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'" 
+          (click)="this._ebayService.swapEnv(false)" type="button">Live</button>
         <a href="javascript://" class="nav-link nav-icon">
             <clr-icon shape="cog" (click)="getCode()"></clr-icon>
         </a>
@@ -20,7 +23,7 @@
   </clr-header>
   <div class="content-container">
       <main class="content-area">
-          main content area
+          Token: {{getAccessToken()}}
       </main>
       <!-- <nav class="sidenav" [clr-nav-level]="2">
           sidenav

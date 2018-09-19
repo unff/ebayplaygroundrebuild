@@ -32,3 +32,5 @@ got the currently running config into the main process.  need to hook the logic 
 then need to turn code into tokens
 then need to send tokens and expirations back through IPC
 then need to set them in localstorage
+*** tokens not being set in LocalStorage for some reason
+*** The reason is that ipcRenderer isn;t getting them.  Stupid IPC crap.

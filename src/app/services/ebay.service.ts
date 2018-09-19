@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { ElectronService } from 'ngx-electron';
 import { Observable, Subscription, Observer } from 'rxjs'
 //import { map } from 'rxjs/operators'
 import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store'
@@ -50,7 +51,7 @@ export class EbayService {
     if(this.isSandbox) {
       this._sandboxAccessToken = token
     } else {
-      console.log("dump acc")
+      console.log(`dump acc: ${token}`)
       this._productionAccessToken = token
     }
   }
@@ -62,7 +63,7 @@ export class EbayService {
     if(this.isSandbox) {
       this._sandboxRefreshToken = token
     } else {
-      console.log("dump ref")
+      console.log(`dump ref: ${token}`)
       this._productionRefreshToken = token
     }
   }
@@ -100,7 +101,7 @@ export class EbayService {
   private config: Observable<Object>
   public configsLoaded: boolean
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _electronService: ElectronService) {
     this.configsLoaded = false
     this.config = this._http.get('assets/config.json')
     this.config.subscribe((res: any) => {
@@ -110,6 +111,14 @@ export class EbayService {
       // this.refreshSandboxAccessToken()
       // this.refreshProductionAccessToken()
       this.configsLoaded = true
+      this._electronService.ipcRenderer.on('tokens-received', (tokens) => {
+        console.log('TOKENS IN EBAY SERVICE')
+        console.log(tokens)
+        this.refreshToken = tokens.refresh_token
+        this.refreshTokenExp = new Date(Date.now()+(tokens.refresh_token_expires_in*1000))
+        this.accessToken = tokens.access_token
+        this.accessTokenExp= new Date(Date.now()+(tokens.expires_in*1000))
+      })
     })
 
     if (this.isSandbox == null) {
@@ -119,6 +128,7 @@ export class EbayService {
       this.siteModel = 'EBAY_US'
     } else { // we've been here before.  load previous values and set token expirations.
       // weeeeird @LocalStorage issue where var doesnt register a value on until set?.  WTF.
+      console.log('weird @LocalStorage bug')
       this.isSandbox = this.isSandbox
       this.siteModel = this.siteModel
       this._sandboxAccessToken = this._sandboxAccessToken

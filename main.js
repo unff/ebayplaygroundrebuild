@@ -9,21 +9,34 @@ let win, authWin = null
 
 global.ebayData = {}
 
-let scope = encodeURIComponent(
-  config.ebay.scope
-  .reduce((acc, val)=> acc+' '+val)
-  //.trim()
-)
-let tempAuthUrl = config.ebay.authorizeUrl
-    +"?client_id="+config.ebay.clientId
-    +"&response_type=code"
-    +"&redirect_uri="+config.ebay.ruName
-    +"&scope="+scope
+function fullAuthURL(config) {
+  let scope = encodeURIComponent(
+    config.scope
+    .reduce((acc, val)=> acc+' '+val)
+    //.trim()
+  )
+  return  config.authorizeUrl
+          +"?client_id="+config.clientId
+          +"&response_type=code"
+          +"&redirect_uri="+config.ruName
+          +"&scope="+scope
+  }
+
+// let scope = encodeURIComponent(
+//   config.ebay.scope
+//   .reduce((acc, val)=> acc+' '+val)
+//   //.trim()
+// )
+// let tempAuthUrl = config.ebay.authorizeUrl
+//     +"?client_id="+config.ebay.clientId
+//     +"&response_type=code"
+//     +"&redirect_uri="+config.ebay.ruName
+//     +"&scope="+scope
 
 // console.log(tempAuthUrl)
 
 
-function oauthCallback(url, window, config) {
+function oauthCallback(url, window, ipcEvent, config) {
   // regex!  ebay returns a code good for 5 minutes you can use to create a token set.  get the code.
   let raw_code = /code=([^&]*)/.exec(url)
   let code = (raw_code && raw_code.length > 1) ? raw_code[1]: null // assuming a code was returned, set code equal to the first cap group (the bit after 'code=')
@@ -33,21 +46,41 @@ function oauthCallback(url, window, config) {
   }
   if (code) {
     // do code related things
-    console.log(`code: ${code}`)
+    // console.log(`code: ${code}`)
+    requestToken(code, ipcEvent, config)
   } else if (error) {
     // do error related things using error[1]
     console.log(`error: ${error}`)
   }
 }
 
-function requestToken(code) {
+function requestToken(code, ipcEvent, config) {
+  //console.info('token requested')
   // this thing needs to take the code returned and make a token set out of it.
-  // Set tokens to localStorage?
+  // Set tokens to localStorage? no - return them to ng so it can store them.
+  let authCode = Buffer.from(config.clientId+":"+config.secret).toString('base64') // btoa doesnt exist in node
   let request = net.request({
     method: 'POST',
-    protocol: 'https',
-    hostname: 'ebay.com',
-    path: '/'
+    protocol: 'https:',
+    hostname: 'api.ebay.com',
+    path: 'identity/v1/oauth2/token'
+  })
+  request.setHeader('Content-Type','application/x-www-form-urlencoded')
+  request.setHeader('Authorization', `Basic ${authCode}`)
+  request.end(`grant_type=authorization_code&code=${code}&redirect_uri=${config.ruName}`)
+
+  request.on('response', (response) => {
+    let body = ''
+    response.on('data', (chunk)=> {
+      body += chunk
+    })
+    response.on('end', () => {
+      //console.log(body)
+      var parsed = JSON.parse(body)
+      console.log(parsed.refresh_token)
+      ipcEvent.sender.send('tokens-received', parsed)
+    })
+
   })
 }
 
@@ -57,7 +90,6 @@ function createWindow() {
     height: 600,
     show: false 
   })
-
   // load the dist folder from Angular
   win.loadURL(
     url.format({
@@ -69,6 +101,8 @@ function createWindow() {
 
   win.once('ready-to-show', () => {
     win.show()
+    win.maximize()
+    win.toggleDevTools()
   })
 
   // The following is optional and will open the DevTools:
@@ -100,16 +134,14 @@ app.on("activate", () => {
 
 // IPC SECTION 
 
-ipcMain.on('do-auth', (e, arg) => {
+ipcMain.on('do-auth', (ipcEvent, arg) => {
   // Catch 'do-auth' from the renderer and fire up the auth window.  
-  // eventually we'll need to pass in a config object
-  console.log('do-auth arg: ')
-  console.log(arg)
-  authWindow(arg)
+  // we have to pass this IPC event object around like a hot potato
+  authWindow(ipcEvent, arg) // hot potato here
 })
 
 // Auth window
-const authWindow = exports.authWindow = (config) => {
+const authWindow = exports.authWindow = (ipcEvent, config) => {
   authWin = new BrowserWindow({
     width: 600,
     height: 1000,
@@ -119,8 +151,7 @@ const authWindow = exports.authWindow = (config) => {
   //const ses = authWin.webContents.session
   //ses.clearAuthCache(() => {})
   //ses.clearCache(() => {})
-  authWin.loadURL(tempAuthUrl) // Load ebay auth URL
-
+  authWin.loadURL(fullAuthURL(config)) // Load ebay auth URL
   authWin.once('ready-to-show', () => {
     authWin.show()
   })
@@ -131,16 +162,13 @@ const authWindow = exports.authWindow = (config) => {
   })
 
   authWin.webContents.on('did-get-redirect-request', (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) => {
-    // This one catches redirects that happen when you are already logged in via cache.
-    //console.log(`302 found: ${newURL}, ${oldURL}, ${httpResponseCode}`)
-    oauthCallback(newURL, authWin, config)
+    // This one catches initial code redirects that happen when you are already logged in via cache.
+    oauthCallback(newURL, authWin, ipcEvent, config)
   })
 
   authWin.webContents.on('will-navigate', (event, newUrl) => {
     // This one catches fresh logins.
-    //console.log('got navigate?')
-    //console.log(newUrl)
-    oauthCallback(newUrl, authWin, config)
+    oauthCallback(newUrl, authWin, ipcEvent, config)
   })
 
   authWin.webContents.on('did-navigate', (e, url) => {
