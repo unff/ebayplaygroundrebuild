@@ -106,6 +106,7 @@ export class EbayService {
     this.config.subscribe((res: any) => {
       this.productionConfig = res.ebay
       this.sandboxConfig = res.ebaysandbox
+      // this.refreshAccessToken
       // this.refreshSandboxAccessToken()
       // this.refreshProductionAccessToken()
       this.configsLoaded = true

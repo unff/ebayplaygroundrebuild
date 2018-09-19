@@ -20,10 +20,10 @@ let tempAuthUrl = config.ebay.authorizeUrl
     +"&redirect_uri="+config.ebay.ruName
     +"&scope="+scope
 
-console.log(tempAuthUrl)
+// console.log(tempAuthUrl)
 
 
-function oauthCallback(url, window) {
+function oauthCallback(url, window, config) {
   // regex!  ebay returns a code good for 5 minutes you can use to create a token set.  get the code.
   let raw_code = /code=([^&]*)/.exec(url)
   let code = (raw_code && raw_code.length > 1) ? raw_code[1]: null // assuming a code was returned, set code equal to the first cap group (the bit after 'code=')
@@ -34,7 +34,6 @@ function oauthCallback(url, window) {
   if (code) {
     // do code related things
     console.log(`code: ${code}`)
-    global.ebayData.code = code
   } else if (error) {
     // do error related things using error[1]
     console.log(`error: ${error}`)
@@ -99,16 +98,18 @@ app.on("activate", () => {
   }
 })
 
+// IPC SECTION 
+
 ipcMain.on('do-auth', (e, arg) => {
   // Catch 'do-auth' from the renderer and fire up the auth window.  
   // eventually we'll need to pass in a config object
   console.log('do-auth arg: ')
   console.log(arg)
-  authWindow()
+  authWindow(arg)
 })
 
 // Auth window
-const authWindow = exports.authWindow = () => {
+const authWindow = exports.authWindow = (config) => {
   authWin = new BrowserWindow({
     width: 600,
     height: 1000,
@@ -132,14 +133,14 @@ const authWindow = exports.authWindow = () => {
   authWin.webContents.on('did-get-redirect-request', (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) => {
     // This one catches redirects that happen when you are already logged in via cache.
     //console.log(`302 found: ${newURL}, ${oldURL}, ${httpResponseCode}`)
-    oauthCallback(newURL, authWin)
+    oauthCallback(newURL, authWin, config)
   })
 
   authWin.webContents.on('will-navigate', (event, newUrl) => {
     // This one catches fresh logins.
     //console.log('got navigate?')
     //console.log(newUrl)
-    oauthCallback(newUrl, authWin)
+    oauthCallback(newUrl, authWin, config)
   })
 
   authWin.webContents.on('did-navigate', (e, url) => {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import {EbayService} from "./services/ebay.service";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ElectronService } from 'ngx-electron';
 export class AppComponent {
   title = 'eBay Playground';
 
-  constructor(private _electronService: ElectronService) {}
+  constructor(private _electronService: ElectronService, private _ebayService: EbayService) {}
 
   getCode_old() {
     console.log(__dirname)
@@ -21,9 +22,7 @@ export class AppComponent {
   }
 
   getCode() {
-    this._electronService.ipcRenderer.send('do-auth',{
-      "clientId": "SixBitSo-Stockie-SBX-a090fc79c-80a504d9",
-      "secret": "SBX-090fc79c23cb-451f-4990-ba40-6bbc"})
+    this._electronService.ipcRenderer.send('do-auth',this._ebayService.runningConfig)
   }
 
 }
