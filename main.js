@@ -45,7 +45,7 @@ function requestToken(code, ipcEvent, config) {
   // this thing needs to take the code returned and make a token set out of it.
   // Set tokens to localStorage? no - return them to ng so it can store them.
   let tokenURL = url.parse(config.accessUrl)
-  console.log(tokenURL)
+  //console.log(tokenURL)
   let authCode = Buffer.from(config.clientId+":"+config.secret).toString('base64') // btoa doesnt exist in node
   let request = net.request({
     method: 'POST',
