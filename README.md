@@ -10,6 +10,7 @@
     - npm run dist
 
 # Notes
+<pre>
 ✓ - generate tokens
 ✓ - pass tokens back through IPC
 ✓ - Angular handles local storage and persistence.
@@ -55,3 +56,6 @@ OK So now what?
 - Cleanup!  Split IPC and helper functions into their own files
 
 Need controller to not open multiple authWindows (prevent clickSpam)
+
+
+</pre>
