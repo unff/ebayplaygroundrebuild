@@ -22,20 +22,6 @@ function fullAuthURL(config) {
           +"&scope="+scope
   }
 
-// let scope = encodeURIComponent(
-//   config.ebay.scope
-//   .reduce((acc, val)=> acc+' '+val)
-//   //.trim()
-// )
-// let tempAuthUrl = config.ebay.authorizeUrl
-//     +"?client_id="+config.ebay.clientId
-//     +"&response_type=code"
-//     +"&redirect_uri="+config.ebay.ruName
-//     +"&scope="+scope
-
-// console.log(tempAuthUrl)
-
-
 function oauthCallback(url, window, ipcEvent, config) {
   // regex!  ebay returns a code good for 5 minutes you can use to create a token set.  get the code.
   let raw_code = /code=([^&]*)/.exec(url)
@@ -77,7 +63,8 @@ function requestToken(code, ipcEvent, config) {
     response.on('end', () => {
       //console.log(body)
       var parsed = JSON.parse(body)
-      console.log(parsed.refresh_token)
+      //console.log(parsed.refresh_token)
+      console.log(ipcEvent.sender)
       ipcEvent.sender.send('tokens-received', parsed)
     })
 

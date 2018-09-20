@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, ApplicationRef } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { ElectronService } from 'ngx-electron';
 import { Observable, Subscription, Observer } from 'rxjs'
@@ -101,7 +101,7 @@ export class EbayService {
   private config: Observable<Object>
   public configsLoaded: boolean
 
-  constructor(private _http: HttpClient, private _electronService: ElectronService) {
+  constructor(private _http: HttpClient, private _electronService: ElectronService, private ref: ApplicationRef) {
     this.configsLoaded = false
     this.config = this._http.get('assets/config.json')
     this.config.subscribe((res: any) => {
@@ -111,13 +111,15 @@ export class EbayService {
       // this.refreshSandboxAccessToken()
       // this.refreshProductionAccessToken()
       this.configsLoaded = true
-      this._electronService.ipcRenderer.on('tokens-received', (tokens) => {
+      // IPC SECTION
+      this._electronService.ipcRenderer.on('tokens-received', (e, tokens) => {
         console.log('TOKENS IN EBAY SERVICE')
         console.log(tokens)
         this.refreshToken = tokens.refresh_token
         this.refreshTokenExp = new Date(Date.now()+(tokens.refresh_token_expires_in*1000))
         this.accessToken = tokens.access_token
         this.accessTokenExp= new Date(Date.now()+(tokens.expires_in*1000))
+        this.ref.tick()
       })
     })
 

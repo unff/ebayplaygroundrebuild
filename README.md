@@ -34,3 +34,6 @@ then need to send tokens and expirations back through IPC
 then need to set them in localstorage
 *** tokens not being set in LocalStorage for some reason
 *** The reason is that ipcRenderer isn;t getting them.  Stupid IPC crap.
+*** I missed an event in the callback.  fixed now.
+
+Now sandbox doesn't work.  Live does, but sandbox does not generate tokens.
