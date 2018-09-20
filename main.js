@@ -32,7 +32,7 @@ function oauthCallback(url, window, ipcEvent, config) {
   }
   if (code) {
     // do code related things
-    // console.log(`code: ${code}`)
+    console.log(`code: ${code}`)
     requestToken(code, ipcEvent, config)
   } else if (error) {
     // do error related things using error[1]
@@ -44,18 +44,23 @@ function requestToken(code, ipcEvent, config) {
   //console.info('token requested')
   // this thing needs to take the code returned and make a token set out of it.
   // Set tokens to localStorage? no - return them to ng so it can store them.
+  let tokenURL = url.parse(config.accessUrl)
+  console.log(tokenURL)
   let authCode = Buffer.from(config.clientId+":"+config.secret).toString('base64') // btoa doesnt exist in node
   let request = net.request({
     method: 'POST',
-    protocol: 'https:',
-    hostname: 'api.ebay.com',
-    path: 'identity/v1/oauth2/token'
+    protocol: tokenURL.protocol,
+    hostname: tokenURL.hostname,
+    path: tokenURL.path
   })
   request.setHeader('Content-Type','application/x-www-form-urlencoded')
   request.setHeader('Authorization', `Basic ${authCode}`)
+  //console.log('sending')
   request.end(`grant_type=authorization_code&code=${code}&redirect_uri=${config.ruName}`)
+  //console.log(request)
 
   request.on('response', (response) => {
+    //console.log('response!')
     let body = ''
     response.on('data', (chunk)=> {
       body += chunk
@@ -64,7 +69,7 @@ function requestToken(code, ipcEvent, config) {
       //console.log(body)
       var parsed = JSON.parse(body)
       //console.log(parsed.refresh_token)
-      console.log(ipcEvent.sender)
+      //console.log(parsed.access_token)
       ipcEvent.sender.send('tokens-received', parsed)
     })
 
