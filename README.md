@@ -1,4 +1,15 @@
+# Instructions
+    Code install:
+    - git clone (this repo)
+    - cd ebayplayground
+    - npm install
+    Run local:
+    - npm run electron (ng dev build)
+    - npm run eprod (ng production build)
+    Create an installer:
+    - npm run dist
 
+# Notes
 ✓ - generate tokens
 ✓ - pass tokens back through IPC
 ✓ - Angular handles local storage and persistence.
@@ -41,4 +52,6 @@ FIXT: Now sandbox doesn't work.  Live does, but sandbox does not generate tokens
 
 OK So now what?
 - Fix the layout so the whole token is visible?  Do we really need it at all though??
-- 
+- Cleanup!  Split IPC and helper functions into their own files
+
+Need controller to not open multiple authWindows (prevent clickSpam)

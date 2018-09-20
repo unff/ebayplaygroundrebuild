@@ -11,7 +11,7 @@ import { EbayService } from "./services/ebay.service";
 export class AppComponent  {
   envModel = this._ebayService.isSandbox ? 'Sandbox' : 'Live'
 
-  constructor(private _electronService: ElectronService, private _ebayService: EbayService) {}
+  constructor(public _electronService: ElectronService, public _ebayService: EbayService) {}
 
 // IPC ZONE
   

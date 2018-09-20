@@ -101,7 +101,7 @@ export class EbayService {
   private config: Observable<Object>
   public configsLoaded: boolean
 
-  constructor(private _http: HttpClient, private _electronService: ElectronService, private ref: ApplicationRef) {
+  constructor(public _http: HttpClient, public _electronService: ElectronService, public ref: ApplicationRef) {
     this.configsLoaded = false
     this.config = this._http.get('assets/config.json')
     this.config.subscribe((res: any) => {

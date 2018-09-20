@@ -23,7 +23,14 @@
   </clr-header>
   <div class="content-container">
       <main class="content-area">
-          Token: {{getAccessToken()}}
+        Access Token: 
+        <div class="token-holder">
+          {{getAccessToken()}}
+        </div>
+        Refresh Token: 
+        <div class="token-holder">
+          {{this._ebayService.refreshToken}}
+        </div>
       </main>
       <!-- <nav class="sidenav" [clr-nav-level]="2">
           sidenav

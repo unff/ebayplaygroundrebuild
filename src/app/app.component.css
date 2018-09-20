@@ -1,0 +1,6 @@
+.token-holder {
+    padding: 3px; 
+    width: 100%; 
+    word-break: break-all; 
+    word-wrap: break-word;
+}
