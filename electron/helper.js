@@ -1,7 +1,7 @@
 const { net } = require("electron")
 const url = require("url")
 
-module.exports.fullAuthURL = function fullAuthURL(config) {
+function fullAuthURL(config) {
   // creates an authorization URL from the config object passed into it.  
   // See src/assets/config.json for config file
     let scope = encodeURIComponent(
@@ -16,7 +16,7 @@ module.exports.fullAuthURL = function fullAuthURL(config) {
             +"&scope="+scope
     }
   
-  module.exports.oauthCallback = function oauthCallback(url, window, ipcEvent, config) {
+  function oauthCallback(url, window, ipcEvent, config) {
     // AuthWin loads the renderer with the fullAuthUrl (see above) and the authUrl will redirect you to
     // the callback (ruName) with a code attached.  This function catches any redirects and looks for the code
     // so the ruName callback URL is moot as far as we're concerned.  We just care about "code="
@@ -38,7 +38,6 @@ module.exports.fullAuthURL = function fullAuthURL(config) {
   }
   
   function requestToken(code, ipcEvent, config) { // only used in helper.js so no need to export it.
-    //console.info('token requested')
     // this thing needs to take the code returned and make a token set out of it.
     // Set tokens to localStorage? no - return them to ng so it can store them.
     let tokenURL = url.parse(config.accessUrl) // The config object has a full URL, we need pieces.  Use url.parse() to parse it.
@@ -67,3 +66,9 @@ module.exports.fullAuthURL = function fullAuthURL(config) {
   
     })
   }
+
+  // EXPORTS SECTION! Recycle, Reduce, Reuse
+
+  module.exports.fullAuthURL = fullAuthURL
+  module.exports.oauthCallback = oauthCallback
+  module.exports.requestToken = requestToken

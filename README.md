@@ -56,6 +56,13 @@ OK So now what?
 - Cleanup!  Split IPC and helper functions into their own files
 
 Need controller to not open multiple authWindows (prevent clickSpam)
+- what can I trigger off of? replace button with a spinner
 
+Need something to snoop into ebay responses and listen for invalid IAF token, then re-do the token
+eBay calls should all go through the electron side via IPC and a helper function
+
+✓ - Replace tokens in the main content area with checkmarks if we have a valid refresh token
+
+On startup, check the access token.  if it's past expiration, generate a new one with helper.refreshToken()
 
 </pre>

@@ -36,13 +36,7 @@ export class EbayService {
   
   // getters and setters for tokens and expirations
   // private _authenticated: boolean
-  public get authenticated(): boolean {
-    if (this.refreshTokenExp) {
-      return new Date(this.refreshTokenExp).getTime() > new Date().getTime() ? true : false
-    } else {
-      return false
-    }
-  }
+
 
   public get accessToken(): string {
     return this.isSandbox? this._sandboxAccessToken : this._productionAccessToken
@@ -96,6 +90,14 @@ export class EbayService {
   public set isSandbox(b: boolean) {
     console.info('isSandbox set to: '+b.toString())
     this._isSandbox = b
+  }
+
+  public get sandboxRefreshTokenExp() {
+    return this._sandboxRefreshTokenExp
+  }
+
+  public get liveRefreshTokenExp() {
+    return this._productionRefreshTokenExp
   }
 
   private config: Observable<Object>
