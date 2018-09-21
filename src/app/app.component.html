@@ -17,7 +17,7 @@
           <button [ngClass]="!this._ebayService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'" 
           (click)="this._ebayService.swapEnv(false)" type="button">Live{{authenticated(false)}}</button>
         <a href="javascript://" class="nav-link nav-icon">
-            <clr-icon shape="cog" (click)="getCode()"></clr-icon>
+            <clr-icon shape="cog" (click)="authenticated(this._ebayService.isSandbox) ? renewToken() : getCode()"></clr-icon>
         </a>
       </div>
   </clr-header>

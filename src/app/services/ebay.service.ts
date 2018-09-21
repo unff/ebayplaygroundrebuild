@@ -115,10 +115,13 @@ export class EbayService {
       this.configsLoaded = true
       // IPC SECTION
       this._electronService.ipcRenderer.on('tokens-received', (e, tokens) => {
-        console.log('TOKENS IN EBAY SERVICE')
-        console.log(tokens)
         this.refreshToken = tokens.refresh_token
         this.refreshTokenExp = new Date(Date.now()+(tokens.refresh_token_expires_in*1000))
+        this.accessToken = tokens.access_token
+        this.accessTokenExp= new Date(Date.now()+(tokens.expires_in*1000))
+        this.ref.tick()
+      })
+      this._electronService.ipcRenderer.on('token-renewed', (e, tokens) => {
         this.accessToken = tokens.access_token
         this.accessTokenExp= new Date(Date.now()+(tokens.expires_in*1000))
         this.ref.tick()

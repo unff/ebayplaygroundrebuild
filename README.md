@@ -15,6 +15,8 @@
 ✓ - pass tokens back through IPC
 ✓ - Angular handles local storage and persistence.
 
+REFRESH token is the long-lives one used to generate new access tokens
+
 - click the gear
 - get code through electron
 - turn code into token(s) in electron
@@ -64,6 +66,7 @@ eBay calls should all go through the electron side via IPC and a helper function
 ✓ - Replace tokens in the main content area with checkmarks if we have a valid refresh token
 
 On startup, check the access token.  if it's past expiration, generate a new one with helper.refreshToken()
-- will have to create a new IPC channel for this.
+✓ - will have to create a new IPC channel for this.
+- renewToken() on app.component will do this.  Just need to hook it into startup.
 
 </pre>

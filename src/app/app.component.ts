@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { EbayService } from "./services/ebay.service";
+import { RenewTokenArgs } from "./renew-token-args"
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,19 @@ export class AppComponent  {
 // IPC ZONE
   
   getCode(): void {
-    console.log(`sandbox: ${this._ebayService.isSandbox}`)
-    console.info('runningConfig: ')
-    console.log(this._ebayService.runningConfig)
+    // fire IPC on the 'do-auth' channel, passing the config along
     this._electronService.ipcRenderer.send('do-auth',this._ebayService.runningConfig)
   }
+
+  renewToken(): void {
+    // fire IPC off on the 'renew-token' channel, passing the running config and the running refresh token
+    let args = {} as RenewTokenArgs
+    args.token = this._ebayService.refreshToken
+    args.config = this._ebayService.runningConfig
+    this._electronService.ipcRenderer.send('renew-token', args)
+  }
+
+  // VIEW FUNCTIONS
 
   public authenticated(sandbox: Boolean): String {
     if (sandbox) {

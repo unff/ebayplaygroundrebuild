@@ -71,9 +71,36 @@ function fullAuthURL(config) {
     // we need the token to make the call
     // we need the ipcEvent to return the token
     // we need the config to know what URL to use
+    // call is basically a copy of requestTokensFromCode(), see that one for details
+    // can probably merge the two calls at some point, but would only please the truly semantic
+    let tokenURL = url.parse(config.accessUrl) 
+    let authCode = Buffer.from(config.clientId+":"+config.secret).toString('base64') 
+    let scope = encodeURIComponent(config.scope.reduce((acc, val)=> acc+' '+val)) // need the scope for this one.
+    let request = net.request({ 
+      method: 'POST',
+      protocol: tokenURL.protocol,
+      hostname: tokenURL.hostname,
+      path: tokenURL.path
+    })
+    request.setHeader('Content-Type','application/x-www-form-urlencoded') 
+    request.setHeader('Authorization', `Basic ${authCode}`)  // same authCode as before
+    request.end(`grant_type=refresh_token&refresh_token=${token}&scope=${scope}`) // refresh_token instead of auth code this time. Only real change
+  
+    request.on('response', (response) => { 
+      let body = '' 
+      response.on('data', (chunk)=> { 
+        body += chunk
+      })
+      response.on('end', () => {  
+        var parsed = JSON.parse(body)  
+        ipcEvent.sender.send('token-renewed', parsed) // different channel for different object.
+      })
+  
+    })
   }
 
   // EXPORTS SECTION! Recycle, Reduce, Reuse
 
   module.exports.fullAuthURL = fullAuthURL
   module.exports.oauthCallback = oauthCallback
+  module.exports.renewAccessToken = renewAccessToken

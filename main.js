@@ -108,7 +108,9 @@ ipcMain.on('do-auth', (ipcEvent, arg) => {
   authWindow(ipcEvent, arg) // hot potato here
 })
 
-ipcMain.on('refresh-token', (ipcEvent, arg) => {
-  
+ipcMain.on('renew-token', (ipcEvent, arg) => {
+  // This is a main window call
+  // token, ipcEvent, config
+  helper.renewAccessToken(arg.token, ipcEvent, arg.config)
 })
 
