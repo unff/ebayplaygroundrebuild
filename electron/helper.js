@@ -30,14 +30,14 @@ function fullAuthURL(config) {
     }
     if (code) {
       // do code related things
-      requestToken(code, ipcEvent, config)
+      requestTokensFromCode(code, ipcEvent, config)
     } else if (error) {
       // do error related things using error[1]
       console.log(`error: ${error}`)  // TODO: This needs to get an IPC treatment as the electron console will not ve available.
     } // no code, no error. Do nothing and let electron proceed with the redirect.
   }
   
-  function requestToken(code, ipcEvent, config) { // only used in helper.js so no need to export it.
+  function requestTokensFromCode(code, ipcEvent, config) { // only used in helper.js so no need to export it.
     // this thing needs to take the code returned and make a token set out of it.
     // Set tokens to localStorage? no - return them to ng so it can store them.
     let tokenURL = url.parse(config.accessUrl) // The config object has a full URL, we need pieces.  Use url.parse() to parse it.
@@ -67,8 +67,13 @@ function fullAuthURL(config) {
     })
   }
 
+  function renewAccessToken(token, ipcEvent, config){
+    // we need the token to make the call
+    // we need the ipcEvent to return the token
+    // we need the config to know what URL to use
+  }
+
   // EXPORTS SECTION! Recycle, Reduce, Reuse
 
   module.exports.fullAuthURL = fullAuthURL
   module.exports.oauthCallback = oauthCallback
-  module.exports.requestToken = requestToken

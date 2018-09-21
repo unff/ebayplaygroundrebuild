@@ -108,3 +108,7 @@ ipcMain.on('do-auth', (ipcEvent, arg) => {
   authWindow(ipcEvent, arg) // hot potato here
 })
 
+ipcMain.on('refresh-token', (ipcEvent, arg) => {
+  
+})
+
