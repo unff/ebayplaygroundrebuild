@@ -3,7 +3,7 @@ const path = require("path")
 const url = require("url")
 
 // load in the helper functions
-const helper = require('./electron/helper.js')
+const ebayTokens = require('./electron/ebay-tokens.js')
 
 let windows = new Set() // create a set to hold the window objects
 
@@ -72,7 +72,7 @@ const authWindow = (ipcEvent, config) => {
   //const ses = authWin.webContents.session
   //ses.clearAuthCache(() => {})
   //ses.clearCache(() => {})
-  authWin.loadURL(helper.fullAuthURL(config)) // Load ebay auth URL
+  authWin.loadURL(ebayTokens.fullAuthURL(config)) // Load ebay auth URL
   authWin.once('ready-to-show', () => {
     authWin.show()
   })
@@ -84,12 +84,12 @@ const authWindow = (ipcEvent, config) => {
 
   authWin.webContents.on('did-get-redirect-request', (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) => {
     // This one catches initial code redirects that happen when you are already logged in via cache.
-    helper.oauthCallback(newURL, authWin, ipcEvent, config)
+    ebayTokens.oauthCallback(newURL, authWin, ipcEvent, config)
   })
 
   authWin.webContents.on('will-navigate', (event, newUrl) => {
     // This one catches fresh logins.
-    helper.oauthCallback(newUrl, authWin, ipcEvent, config)
+    ebayTokens.oauthCallback(newUrl, authWin, ipcEvent, config)
   })
 
   authWin.webContents.on('did-navigate', (e, url) => {
@@ -111,6 +111,6 @@ ipcMain.on('do-auth', (ipcEvent, arg) => {
 ipcMain.on('renew-token', (ipcEvent, arg) => {
   // This is a main window call
   // token, ipcEvent, config
-  helper.renewAccessToken(arg.token, ipcEvent, arg.config)
+  ebayTokens.renewAccessToken(arg.token, ipcEvent, arg.config)
 })
 

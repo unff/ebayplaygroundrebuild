@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EbayService } from './ebay.service';
+import { EbayStateService } from './ebayState.service';
 
-describe('EbayService', () => {
+describe('EbayStateService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: EbayService = TestBed.get(EbayService);
+    const service: EbayStateService = TestBed.get(EbayStateService);
     expect(service).toBeTruthy();
   });
 });

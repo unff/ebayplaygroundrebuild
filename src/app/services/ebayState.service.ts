@@ -1,15 +1,14 @@
 import { Injectable, ApplicationRef } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { ElectronService } from 'ngx-electron';
-import { Observable, Subscription, Observer } from 'rxjs'
-//import { map } from 'rxjs/operators'
-import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store'
-import { Config } from '../config'
+import { Observable } from 'rxjs'
+import { LocalStorage } from 'ngx-store'
+import { Config } from '../interfaces/config'
 
 @Injectable({
   providedIn: 'root'
 })
-export class EbayService {
+export class EbayStateService {
   
   private productionConfig: Config
   private sandboxConfig: Config
@@ -32,11 +31,7 @@ export class EbayService {
 
   @LocalStorage() private _isSandbox: boolean
 
-  
-  
   // getters and setters for tokens and expirations
-  // private _authenticated: boolean
-
 
   public get accessToken(): string {
     return this.isSandbox? this._sandboxAccessToken : this._productionAccessToken
@@ -84,7 +79,7 @@ export class EbayService {
     }
   }
 
-  public get isSandbox() {
+  public get isSandbox(): boolean {
     return this._isSandbox
   }
   public set isSandbox(b: boolean) {
@@ -92,11 +87,11 @@ export class EbayService {
     this._isSandbox = b
   }
 
-  public get sandboxRefreshTokenExp() {
+  public get sandboxRefreshTokenExp(): Date {
     return this._sandboxRefreshTokenExp
   }
 
-  public get liveRefreshTokenExp() {
+  public get liveRefreshTokenExp(): Date {
     return this._productionRefreshTokenExp
   }
 
@@ -109,11 +104,9 @@ export class EbayService {
     this.config.subscribe((res: any) => {
       this.productionConfig = res.ebay
       this.sandboxConfig = res.ebaysandbox
-      // this.refreshAccessToken
-      // this.refreshSandboxAccessToken()
-      // this.refreshProductionAccessToken()
       this.configsLoaded = true
-      // IPC SECTION
+
+      // IPC RECEPTION STATION
       this._electronService.ipcRenderer.on('tokens-received', (e, tokens) => {
         this.refreshToken = tokens.refresh_token
         this.refreshTokenExp = new Date(Date.now()+(tokens.refresh_token_expires_in*1000))
@@ -149,25 +142,23 @@ export class EbayService {
     }
   }
 
-  public toggleEnv() {
-    this.isSandbox = !this.isSandbox
-  }
+  // public toggleEnv() {
+  //   this.isSandbox = !this.isSandbox
+  // }
 
-  public swapEnv(b: boolean) {
-    this.isSandbox = b
-  }
 
-  private fullAuthUrl() {
-    let scope = encodeURIComponent(
-              this.runningConfig.scope
-              .reduce((acc, val)=> acc+' '+val)
-              //.trim()
-            )
-    return  this.runningConfig.authorizeUrl
-          +"?client_id="+this.runningConfig.clientId
-          +"&response_type=code"
-          +"&redirect_uri="+this.runningConfig.ruName
-          +"&scope="+scope
-  }
+
+  // private fullAuthUrl() {
+  //   let scope = encodeURIComponent(
+  //             this.runningConfig.scope
+  //             .reduce((acc, val)=> acc+' '+val)
+  //             //.trim()
+  //           )
+  //   return  this.runningConfig.authorizeUrl
+  //         +"?client_id="+this.runningConfig.clientId
+  //         +"&response_type=code"
+  //         +"&redirect_uri="+this.runningConfig.ruName
+  //         +"&scope="+scope
+  // }
   
 }

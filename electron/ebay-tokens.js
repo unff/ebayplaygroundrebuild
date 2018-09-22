@@ -85,7 +85,6 @@ function fullAuthURL(config) {
     request.setHeader('Content-Type','application/x-www-form-urlencoded') 
     request.setHeader('Authorization', `Basic ${authCode}`)  // same authCode as before
     request.end(`grant_type=refresh_token&refresh_token=${token}&scope=${scope}`) // refresh_token instead of auth code this time. Only real change
-  
     request.on('response', (response) => { 
       let body = '' 
       response.on('data', (chunk)=> { 
