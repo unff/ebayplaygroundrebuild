@@ -33,5 +33,7 @@ Code is about as cleaned up as it can be.
 Time to go play with CouchDB? PouchDB?  One of the dbs?
 A database is pretty much the next step for this thing.
 
+IMPLEMENT LOGGING.  Everything's great until it's not.  LOGS.
+
 
 </pre>

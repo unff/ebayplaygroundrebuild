@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ElectronService } from 'ngx-electron';
-import { EbayStateService } from "./services/ebayState.service";
-import { RenewTokenArgs } from "./interfaces/renew-token-args"
+import { Component, OnInit } from '@angular/core'
+import { ElectronService } from 'ngx-electron'
+import { EbayStateService } from './services/ebayState.service'
+import { RenewTokenArgs } from './interfaces/renew-token-args'
 
 @Component({
   selector: 'app-root',
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
   renewToken(): void {
     // fire IPC off on the 'renew-token' channel, passing the running config and the running refresh token
-    let args = {} as RenewTokenArgs
+    const args = {} as RenewTokenArgs
     args.token = this._ebayStateService.refreshToken
     args.config = this._ebayStateService.runningConfig
     this._electronService.ipcRenderer.send('renew-token', args)

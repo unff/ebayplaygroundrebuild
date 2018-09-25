@@ -1,7 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require("electron")
 const path = require("path")
 const url = require("url")
 
+const { app, BrowserWindow, ipcMain } = require("electron")
 // load in the helper functions
 const ebayTokens = require('./electron/ebay-tokens.js')
 
@@ -69,9 +69,6 @@ const authWindow = (ipcEvent, config) => {
     show: false
   })
   
-  //const ses = authWin.webContents.session
-  //ses.clearAuthCache(() => {})
-  //ses.clearCache(() => {})
   authWin.loadURL(ebayTokens.fullAuthURL(config)) // Load ebay auth URL
   authWin.once('ready-to-show', () => {
     authWin.show()

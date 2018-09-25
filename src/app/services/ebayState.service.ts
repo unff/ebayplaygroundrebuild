@@ -83,7 +83,7 @@ export class EbayStateService {
     return this._isSandbox
   }
   public set isSandbox(b: boolean) {
-    console.info('isSandbox set to: '+b.toString())
+    console.log('isSandbox set to: ' + b.toString())
     this._isSandbox = b
   }
 
@@ -116,14 +116,14 @@ export class EbayStateService {
       })
       this._electronService.ipcRenderer.on('token-renewed', (e, tokens) => {
         this.accessToken = tokens.access_token
-        this.accessTokenExp= new Date(Date.now()+(tokens.expires_in*1000))
+        this.accessTokenExp = new Date(Date.now() + (tokens.expires_in * 1000))
         this.ref.tick()
       })
     })
 
     if (this.isSandbox == null) {
       console.log('isSandBox defaulting to true')
-      //first run (null variable) defaults to Sandbox
+      // first run (null variable) defaults to Sandbox
       this.isSandbox = true
       this.siteModel = 'EBAY_US'
     } else { // we've been here before.  load previous values and set token expirations.
