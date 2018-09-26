@@ -69,4 +69,25 @@ On startup, check the access token.  if it's past expiration, generate a new one
 ✓ - will have to create a new IPC channel for this.
 - renewToken() on app.component will do this.  Just need to hook it into startup.
 
+IMAGES:
+copy the image to a zip file in either appdata or programdata?
+Use the folder layout where you break out the ID into separate folders
+How would this work with pouchdb IDs? they are quite lengthy.
+Do I need to store a damned counter for this?
+Can I just ignore this and use URLs?
+
+I need a options window.  Pics could be locals or remote, and that needs to be an option.
+
+Import:
+GetSellerList - gets a page of running listing IDs
+GetMyEbaySelling - not a typo - retrieves listings and counts
+GetItem - gets a single listing
+
+info to keep:
+account info
+- business profiles
+- category definitions
+- item specific definitions
+
+
 </pre>
