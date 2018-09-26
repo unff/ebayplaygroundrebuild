@@ -12,12 +12,12 @@
         <a href="javascript://" class="nav-link nav-text">AU</a>
       </div>
       <div class="header-actions">
-          <button [ngClass]="this._ebayService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'"
-          (click)="this._ebayService.swapEnv(true)" type="button">Sandbox{{authenticated(true)}}</button>
-          <button [ngClass]="!this._ebayService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'" 
-          (click)="this._ebayService.swapEnv(false)" type="button">Live{{authenticated(false)}}</button>
+          <button [ngClass]="this._ebayStateService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'"
+          (click)="swapEnv(true)" type="button">Sandbox{{authenticated(true)}}</button>
+          <button [ngClass]="!this._ebayStateService.isSandbox ? 'btn btn-success' : 'btn btn-primary-outline'" 
+          (click)="swapEnv(false)" type="button">Live{{authenticated(false)}}</button>
         <a href="javascript://" class="nav-link nav-icon">
-            <clr-icon shape="cog" (click)="authenticated(this._ebayService.isSandbox) ? renewToken() : getCode()"></clr-icon>
+            <clr-icon shape="cog" (click)="authenticated(this._ebayStateService.isSandbox) ? renewToken() : getCode()"></clr-icon>
         </a>
       </div>
   </clr-header>
@@ -25,11 +25,11 @@
       <main class="content-area">
         Access Token: 
         <div class="token-holder">
-          {{this._ebayService.accessToken}}
+          {{this._ebayStateService.accessToken}}
         </div>
         Refresh Token: 
         <div class="token-holder">
-          {{this._ebayService.refreshToken}}
+          {{this._ebayStateService.refreshToken}}
         </div>
       </main>
       <!-- <nav class="sidenav" [clr-nav-level]="2">

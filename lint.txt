@@ -1,0 +1,97 @@
+[37m
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[1, 55]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[2, 47]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[9, 27]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[10, 6]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[12, 58]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[13, 55]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[14, 29]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[15, 6]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[17, 58]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[18, 55]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[19, 55]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[20, 6]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[22, 58]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[23, 28]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[24, 56]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[25, 100]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[26, 6]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.spec.ts[27, 3]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.ts[1, 50]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.ts[2, 47]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.ts[3, 64]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.ts[34, 1]: trailing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.component.ts[37, 54]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[1, 58]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[2, 41]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[3, 56]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[4, 45]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[5, 34]: " should be '
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[5, 64]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[6, 45]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[7, 49]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[8, 3]: comment must start with a space
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[9, 47]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/app.module.ts[20, 7]: comment must start with a space
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/interfaces/config.ts[10, 2]: file should end with a newline
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[1, 48]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[3, 55]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[6, 55]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[9, 68]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[10, 33]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[11, 5]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.spec.ts[12, 3]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[3, 47]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[12, 1]: trailing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[17, 26]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[19, 1]: trailing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[26, 1]: trailing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[37, 26]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[40, 7]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[49, 26]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[52, 7]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[61, 26]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[64, 7]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[72, 26]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[75, 7]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[112, 51]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[112, 52]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[112, 84]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[112, 85]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[114, 28]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[114, 49]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[114, 50]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[114, 68]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[114, 69]: missing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/app/services/ebayState.service.ts[163, 1]: trailing whitespace
+ERROR: C:/Dev/ebayplaygroundrebuild/src/environments/environment.prod.ts[3, 2]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/environments/environment.ts[7, 2]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/main.ts[1, 47]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/main.ts[2, 75]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/main.ts[4, 45]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/main.ts[5, 57]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/main.ts[8, 19]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/main.ts[12, 34]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/polyfills.ts[46, 29]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/polyfills.ts[74, 27]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[3, 35]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[4, 51]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[8, 51]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[10, 27]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[16, 2]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[18, 59]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/src/test.ts[20, 28]: Unnecessary semicolon
+[39m
+[37m
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[1, 35]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[4, 20]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[7, 25]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[8, 5]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[11, 22]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[12, 81]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[13, 5]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.e2e-spec.ts[14, 3]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.po.ts[1, 50]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.po.ts[5, 28]: Unnecessary semicolon
+ERROR: C:/Dev/ebayplaygroundrebuild/e2e/src/app.po.ts[9, 52]: Unnecessary semicolon
+[39m

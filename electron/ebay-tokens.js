@@ -23,7 +23,7 @@ function fullAuthURL(config) {
 
     // regex!  ebay returns a code good for 5 minutes you can use to create a token set.  search the redirect URL for "code="
     let raw_code = /code=([^&]*)/.exec(url)
-    let code = (raw_code && raw_code.length > 1) ? raw_code[1]: null // assuming a code was returned, set code equal to the first capture group (the bit after 'code=')
+    let code = (raw_code && raw_code.length > 1) ? raw_code[1] : null // assuming a code was returned, set code equal to the first capture group (the bit after 'code=')
     let error = /\?error=(.+)$/.exec(url)
     if (code || error) {
       window.close()  // regex returned a code or an error, so the authWindow is no longer needed.
@@ -85,7 +85,6 @@ function fullAuthURL(config) {
     request.setHeader('Content-Type','application/x-www-form-urlencoded') 
     request.setHeader('Authorization', `Basic ${authCode}`)  // same authCode as before
     request.end(`grant_type=refresh_token&refresh_token=${token}&scope=${scope}`) // refresh_token instead of auth code this time. Only real change
-  
     request.on('response', (response) => { 
       let body = '' 
       response.on('data', (chunk)=> { 
@@ -93,7 +92,7 @@ function fullAuthURL(config) {
       })
       response.on('end', () => {  
         var parsed = JSON.parse(body)  
-        ipcEvent.sender.send('token-renewed', parsed) // different channel for different object.
+        ipcEvent.sender.send('token-renewed', parsed) 
       })
   
     })
