@@ -55,6 +55,7 @@ account info
 - business profiles
 - category definitions
 - item specific definitions
+- inventory trends?
 
 
 </pre>
