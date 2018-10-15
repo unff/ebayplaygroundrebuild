@@ -29,7 +29,7 @@ Need controller to not open multiple authWindows (prevent clickSpam)
 Need something to snoop into ebay responses and listen for invalid IAF token, then re-do the token
 eBay calls should all go through the electron side via IPC and a helper function
 
-Code is about as cleaned up as it can be.  
+Code is about as cleaned up as it can be.
 Time to go play with CouchDB? PouchDB?  One of the dbs?
 A database is pretty much the next step for this thing.
 
@@ -57,5 +57,5 @@ account info
 - item specific definitions
 - inventory trends?
 
-
+note.
 </pre>
