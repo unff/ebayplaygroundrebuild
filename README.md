@@ -13,7 +13,7 @@
 <pre>
 
 
-REFRESH token is the long-lives one used to generate new access tokens
+REFRESH token is the long-lived one used to generate new ACCESS tokens which last for 7200 seconds (2 hr)
 
 REFACTOR: Any call to an Angular process should hinge on whether we are running in Electron or not. ngx-electron has such a flag.
 Will eventually want an external token API for non-Electron web app.
